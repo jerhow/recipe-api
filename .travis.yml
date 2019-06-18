@@ -1,0 +1,18 @@
+# So, anytime we push changes to GitHub,
+# Travis is going to:
+
+# 1) Spin up a Python server
+language: python
+python:
+  - "3.6"
+
+# 2) Make the Docker service available
+services:
+  - docker
+
+# 3) Use pip to install docker-compose
+before_script: pip install docker-compose
+
+# 4) Run our unit tests and linter
+script:
+  - docker-compose run app sh -c "python manage.py test && flake8"
